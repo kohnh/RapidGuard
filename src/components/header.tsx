@@ -10,7 +10,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 export default function Header() {
-    const [activeTab, setActiveTab] = useState("Dashboard");
+    const [activeTab, setActiveTab] = useState("root");
     return (
         <header className="sticky top-0 z-50 flex items-center justify-between w-full h-16 px-4 border-b shrink-0 ">
             {/* <EnvCard /> */}
@@ -62,7 +62,11 @@ export default function Header() {
             >
                 <span className="hidden md:flex">Cases</span>
             </Link>
-            <Link href="/settings" className={cn(buttonVariants())}>
+            <Link
+                href="/settings"
+                onClick={() => setActiveTab("settings")}
+                className={cn(buttonVariants())}
+            >
                 <Image
                     src="/setting.svg"
                     alt="setting"

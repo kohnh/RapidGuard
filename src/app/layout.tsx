@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import type React from "react";
+import { StateProvider } from "@/context/StateContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,10 +23,12 @@ export default function RootLayout({
     return (
         <html lang="en" className="dark">
             <body className={inter.className}>
-                <Header />
-                <main className="bg-muted/50 flex h-100vh flex-1 flex-col">
-                    {children}
-                </main>
+                <StateProvider>
+                    <Header />
+                    <main className="bg-muted/50 flex h-100vh flex-1 flex-col">
+                        {children}
+                    </main>
+                </StateProvider>
             </body>
         </html>
     );

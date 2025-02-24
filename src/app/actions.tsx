@@ -17,15 +17,43 @@ export interface Message {
 }
 
 // Streaming Chat
-export async function continueTextConversation(messages: CoreMessage[]) {
-    const result = await streamText({
-        model: google("gemini-1.5-flash"),
-        // model: openai("gpt-4-turbo"),
-        messages,
-    });
+export async function continueTextConversation(
+    messages: CoreMessage[],
+    input: string
+) {
+    try {
+        const response = await fetch("http://54.161.142.111:5000/ask", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                conversation: messages,
+                question: input,
+                initial_solution: "<solution text from /generate_solution>",
+            }),
+        });
 
-    const stream = createStreamableValue(result.textStream);
-    return stream.value;
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("Conversation:", data.conversation);
+
+        return data.conversation; // Ensure the function properly returns the conversation array
+    } catch (error) {
+        console.error("Error:", error);
+        return []; // Return an empty array in case of failure
+    }
+    // const result = await streamText({
+    //     model: google("gemini-1.5-flash"),
+    //     // model: openai("gpt-4-turbo"),
+    //     messages,
+    // });
+
+    // const stream = createStreamableValue(result.textStream);
+    // return stream.value;
 }
 
 // Gen UIs

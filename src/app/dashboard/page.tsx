@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { ChevronRight } from "lucide-react";
+import { useAppState } from "@/context/StateContext";
 
 interface ExpandableSectionProps {
     title: string;
-    content: string;
+    content: string[];
 }
 
 function ExpandableSection({ title, content }: ExpandableSectionProps) {
@@ -24,7 +25,11 @@ function ExpandableSection({ title, content }: ExpandableSectionProps) {
             </button>
             {isExpanded && (
                 <div className="p-3 text-sm text-gray-400 bg-[#1a1a1a] mt-1 rounded">
-                    {content}
+                    <ul>
+                        {content.map((item, index) => (
+                            <li key={index}>{item}</li>
+                        ))}
+                    </ul>
                 </div>
             )}
         </div>
@@ -32,13 +37,27 @@ function ExpandableSection({ title, content }: ExpandableSectionProps) {
 }
 
 export default function Dashboard() {
+    const { activeCases } = useAppState();
     return (
         <>
             <ExpandableSection
                 title="Camera Status"
-                content="No Status Details"
+                content={["No Status Details"]}
             />
-            <ExpandableSection title="Cases" content="No Opened Cases" />
+            {activeCases.length > 0 ? (
+                <ExpandableSection
+                    title="Cases"
+                    content={activeCases.map(
+                        (caseItem) =>
+                            `Case ${caseItem.caseNumber}: ${caseItem.caseDescription}`
+                    )}
+                />
+            ) : (
+                <ExpandableSection
+                    title="Cases"
+                    content={["No Opened Cases"]}
+                />
+            )}
         </>
     );
 }

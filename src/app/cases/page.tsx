@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { ChevronRight } from "lucide-react";
+import { useAppState } from "@/context/StateContext";
 
 interface ExpandableSectionProps {
     title: string;
-    content: string;
+    content: string[];
 }
 
 function ExpandableSection({ title, content }: ExpandableSectionProps) {
@@ -24,7 +25,11 @@ function ExpandableSection({ title, content }: ExpandableSectionProps) {
             </button>
             {isExpanded && (
                 <div className="p-3 text-sm text-gray-400 bg-[#1a1a1a] mt-1 rounded">
-                    {content}
+                    <ul>
+                        {content.map((item, index) => (
+                            <li key={index}>{item}</li>
+                        ))}
+                    </ul>
                 </div>
             )}
         </div>
@@ -32,19 +37,30 @@ function ExpandableSection({ title, content }: ExpandableSectionProps) {
 }
 
 export default function Cases() {
+    const { activeCases } = useAppState();
     return (
         <>
-            <ExpandableSection
-                title="Active Cases"
-                content="Case #1234 - Suspicious Activity
-          Case #1235 - Unauthorized Access
-          Case #1236 - Security Breach"
-            />
+            {activeCases.length > 0 ? (
+                <ExpandableSection
+                    title="Cases"
+                    content={activeCases.map(
+                        (caseItem) =>
+                            `Case ${caseItem.caseNumber}: ${caseItem.caseDescription}`
+                    )}
+                />
+            ) : (
+                <ExpandableSection
+                    title="Cases"
+                    content={["No Opened Cases"]}
+                />
+            )}
             <ExpandableSection
                 title="Resolved Cases"
-                content="Case #1230 - False Alarm
-          Case #1231 - System Test
-          Case #1232 - Maintenance"
+                content={[
+                    "Case #1230 - False Alarm",
+                    "Case #1231 - System Test",
+                    "Case #1232 - Maintenance",
+                ]}
             />
         </>
     );

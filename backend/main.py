@@ -7,15 +7,44 @@ from answer_question import answer_question
 from user_query_to_context import get_context_from_user_query
 from generate_solution import generate_solution
 
+# For file watching
+from watchdog.observers import Observer
+from watchdog.events import FileSystemEventHandler
+from flask_socketio import SocketIO
 
 # Load environment variables from .env file
 load_dotenv()
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = "mysecretkey"  # required for SocketIO
+socketio = SocketIO(app)
 
 # Create the OpenAI client using your API key from the environment variables
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
+# List of filenames to monitor
+files_to_watch = ["fire_context.txt", "user_context.txt"]
+
+# Define a file system event handler that emits a SocketIO event on file creation or modification
+class FileChangeHandler(FileSystemEventHandler):
+    def on_created(self, event):
+        # When a file is created, check if it's one we care about
+        if any(event.src_path.endswith(filename) for filename in files_to_watch):
+            filename = os.path.basename(event.src_path)
+            print(f"File created: {filename}. Emitting event via SocketIO.")
+            socketio.emit("file_changed", {"message": f"{filename} created"})
+
+    def on_modified(self, event):
+        # When a file is modified, check if it's one we care about
+        if any(event.src_path.endswith(filename) for filename in files_to_watch):
+            filename = os.path.basename(event.src_path)
+            print(f"File modified: {filename}. Emitting event via SocketIO.")
+            socketio.emit("file_changed", {"message": f"{filename} modified"})
+
+# Set up and start the observer to watch the current directory (adjust path as needed)
+observer = Observer()
+observer.schedule(FileChangeHandler(), path=".", recursive=False)
+observer.start()
 
 @app.route('/ask', methods=['POST'])
 def ask() -> str:
@@ -64,4 +93,6 @@ def ask() -> str:
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    
+    # Run the app using SocketIO's run method to enable real-time communication.
+    socketio.run(app, debug=True)

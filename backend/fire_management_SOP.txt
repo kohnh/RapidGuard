@@ -1,0 +1,178 @@
+Fire Emergency Response and Management SOP – Shopping Mall
+
+Purpose:
+To protect lives and property by ensuring a coordinated, well-rehearsed response to a fire incident in the mall.
+
+Scope:
+This SOP applies to all on-duty security personnel, mall management, and associated support staff at the shopping mall. It outlines precise roles, required staffing, timing, and step-by-step actions.
+
+------------------------------------------------------------
+PRE-INCIDENT PREPAREDNESS
+
+Staffing Requirements:
+- Security Manager/Incident Commander: 1
+- Floor Supervisors: One per floor (for a mall with 3–5 floors, assign 3–5 supervisors)
+- Evacuation Coordinators: At least 2 per designated zone on each floor
+- Mobile Patrol Guards: 2–3 (to support any floor or corridor as needed)
+- Communication Officer: 1 (dedicated to monitoring radio/PA systems)
+
+Training & Equipment:
+- All guards must be trained on fire extinguisher use (PASS method), evacuation procedures, and emergency communications.
+- Ensure availability of portable fire extinguishers, first aid kits, radios, updated mall floor plans, and posted evacuation maps on every floor.
+
+------------------------------------------------------------
+PHASE 1: IMMEDIATE DETECTION & INITIAL RESPONSE (0–1 Minute)
+
+1. Detection & Alarm Activation:
+   - Any on-duty guard who notices smoke, flames, or a burning odor must verify the presence of fire and pull the nearest fire alarm pull station immediately.
+   - Role: Guard on site
+   - Timing: Within the first 0–30 seconds.
+
+2. Notification:
+   - The guard immediately informs the Floor Supervisor via radio.
+   - The Floor Supervisor confirms the fire and alerts the Security Manager/Incident Commander.
+   - Timing: Complete within 1 minute.
+
+------------------------------------------------------------
+PHASE 2: EMERGENCY COMMUNICATION & SERVICE CONTACT (1–2 Minutes)
+
+1. Call to Emergency Services:
+   - The Designated Communication Officer (or Floor Supervisor if needed) calls 911 (or your designated emergency number) and provides:
+     • Mall name, address, floor number, and the specific location of the fire.
+     • A brief description of the situation and any visible hazards.
+   - Timing: Initiated immediately after confirmation; target call by 1 minute.
+
+2. Public Alert:
+   - The Communication Officer uses the mall’s PA system to announce:
+     “Attention: Fire emergency on [specific location]. Evacuate immediately via the nearest safe exit. Do not use elevators.”
+   - Timing: Announcement within 1–2 minutes.
+
+------------------------------------------------------------
+PHASE 3: EVACUATION COORDINATION (2–5 Minutes)
+
+1. Activation of Evacuation Teams:
+   - Floor Supervisors on each floor divide their area into zones and assign two Evacuation Coordinators per zone.
+   - Coordinators are responsible for directing occupants to the designated emergency exits and assisting vulnerable individuals.
+   - Timing: Evacuation should be initiated by 2 minutes, with full evacuation underway by 5 minutes.
+
+2. Route Clearance & Crowd Control:
+   - Mobile Patrol Guards position themselves in corridors and near exits to ensure routes remain clear and to assist in crowd management.
+   - Floor Supervisors perform a rapid “final sweep” in toilets and shops (target by 5 minutes) to confirm that all individuals have evacuated.
+   - Priority: Prevent bottlenecks and ensure that no elevators are used.
+
+------------------------------------------------------------
+PHASE 4: ON-SITE FIRE SUPPRESSION (If Safe and Trained) (0–10 Minutes)
+
+1. Decision to Engage Fire:
+   - Only if the fire is small and contained, two trained guards (from the mobile patrol team) may attempt to suppress it using a fire extinguisher.
+   - They must always maintain a safe retreat route and have backup support.
+   - Important: If the fire is spreading or poses an immediate threat, cease suppression attempts and focus on evacuation.
+   - Timing: This step is concurrent with evacuation efforts and should be completed within the first 10 minutes.
+
+------------------------------------------------------------
+PHASE 5: ONGOING COMMUNICATION & COORDINATION (Throughout Incident)
+
+1. Regular Updates:
+   - Floor Supervisors report status updates every 2 minutes via radio to the Security Manager.
+   - The Incident Commander logs these updates and communicates with emergency services as needed.
+
+2. Liaison with Firefighters:
+   - Upon their arrival, Floor Supervisors or designated personnel guide firefighters to the fire’s origin, provide building schematics, keys for fire doors, and any utility shut-off instructions.
+   - Timing: As soon as firefighters arrive (target by 5–7 minutes).
+
+------------------------------------------------------------
+PHASE 6: SECURING THE PREMISES & POST-INCIDENT PROCEDURES (After 10 Minutes)
+
+1. Securing the Mall:
+   - Do not allow re-entry: Only permit access once emergency services have declared the mall safe.
+   - Floor Supervisors secure all exits and monitor for any stragglers.
+
+2. Incident Documentation:
+   - The Security Manager and each Floor Supervisor complete a detailed incident report including:
+     • Exact times for alarm activation, evacuation start, and firefighter arrival.
+     • Actions taken, challenges encountered, and any injuries or unresolved hazards.
+   - Debrief: A full debriefing with key personnel (Incident Commander, Floor Supervisors, Evacuation Coordinators, Communication Officer) is held within 1 hour of the incident.
+
+3. Review & Improvement:
+   - Schedule a follow-up meeting within 24 hours to review the incident, update protocols, and plan additional training if necessary.
+
+------------------------------------------------------------
+ORDER OF PRIORITY
+
+1. Detection & Immediate Alarm Activation (0–1 minute)
+2. Notification of Supervisory Personnel & Emergency Services (1 minute)
+3. Public Announcement & Initiation of Evacuation (1–2 minutes)
+4. Zone-Based Evacuation & Crowd Control (2–5 minutes)
+5. On-Site Fire Suppression (if conditions permit) (0–10 minutes)
+6. Ongoing Coordination & Communication (Throughout the incident)
+7. Securing the Premises & Post-Incident Documentation (After 10 minutes)
+
+------------------------------------------------------------
+FLOOR-BY-FLOOR CHECKLIST
+
+This checklist is to be used by the Floor Supervisor on each floor immediately after the alarm is activated. Customize the number of floors and zones as per your mall's layout.
+
+General Items for Every Floor (Before Evacuation):
+------------------------------------------------------------
+[ ] Fire Alarm Verification:
+    • Confirm that the fire alarm pull station was activated and the alarm is sounding.
+[ ] Notification:
+    • Ensure the floor’s evacuation coordinators have been alerted.
+[ ] Clear Access Routes:
+    • Check that all emergency exits, stairwells, and corridors are unobstructed.
+[ ] Display of Evacuation Maps:
+    • Verify that current floor plans and evacuation routes are posted in visible areas.
+[ ] Assist Vulnerable Individuals:
+    • Confirm that designated staff have been assigned to assist the elderly, disabled, or children.
+[ ] Final Sweep:
+    • Perform a rapid check of offices, restrooms, storage rooms, and any enclosed areas.
+
+Floor 1 (Ground Floor):
+------------------------------------------------------------
+[ ] Immediate Area Check:
+    • Confirm that the main lobby, front entrances, and retail zones are clear.
+[ ] Visitor Assistance:
+    • Ensure that any visitors or shoppers are guided out through the primary exits.
+[ ] Check Additional Areas:
+    • Verify that common areas such as food courts, seating areas, and washrooms are empty.
+[ ] Report Status:
+    • Provide a clearance report to the Incident Commander stating Floor 1 is evacuated.
+
+Other floors:
+------------------------------------------------------------
+For each floor (modify based on number of floors):
+[ ] Zone Assignment:
+    • Divide the floor into zones (e.g., North, Central, South) and confirm each zone’s evacuation coordinator is in position.
+[ ] Area-by-Area Check:
+    • Check all individual stores, hallways, restrooms, and offices within each zone.
+[ ] Vulnerable Areas:
+    • Ensure that any special assistance required (for disabled persons, elderly, etc.) is provided in each zone.
+[ ] Final Sweep:
+    • Confirm that no one is left behind, including in smaller rooms or behind service areas.
+[ ] Report to Floor Supervisor:
+    • Each zone coordinator must sign off that their zone is clear and report this to the Floor Supervisor.
+[ ] Exit Clearance:
+    • Once the entire floor is confirmed clear, exit to the designated assembly point and inform the Incident Commander.
+
+Additional Considerations for High-Rise Floors (if applicable):
+------------------------------------------------------------
+[ ] Elevator and Stairwell Monitoring:
+    • Ensure that elevator use is restricted and that stairwells remain the only exit routes.
+[ ] Zone-Specific Evacuation:
+    • For floors with multiple zones, verify that each zone has been independently checked.
+[ ] Assembly Area Coordination:
+    • Confirm that the assembly area for that floor is clear and that all names (from the visitor log and staff list) are accounted for.
+[ ] Communication Check:
+    • Verify that all floor teams have established radio contact with the Floor Supervisor and the Incident Commander.
+
+Post-Evacuation Floor Checklist (After Fire Department Arrives):
+------------------------------------------------------------
+For each floor, after evacuation and once emergency responders are on-site:
+[ ] Final Inspection:
+    • Conduct a final inspection of all zones to ensure no one remains on the floor.
+[ ] Report Unaccounted Areas:
+    • Note any areas that may require additional attention (e.g., storage rooms, maintenance areas).
+[ ] Hazard Identification:
+    • Identify and report any hazards (e.g., spilled chemicals, blocked exits) that were observed during the evacuation.
+[ ] Sign-Off:
+    • Floor Supervisor signs off on the floor’s evacuation status and submits the report to the Security Manager.

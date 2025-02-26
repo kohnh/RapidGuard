@@ -1,0 +1,14 @@
+*.env
+.DS_Store
+*.log
+*.tmp
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+*.bak
+*.orig
+*.pyc
+__pycache__/
+venv

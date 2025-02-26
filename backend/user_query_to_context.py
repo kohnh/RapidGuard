@@ -9,12 +9,11 @@ load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 # Write a function that takes a chat thread and adds additional context about the fire situation, for instance, a change in the manpower, malfunction of certain equipment, etc, to user_context.txt
-def get_context_from_user_query(chat_thread : list) -> str:
+def get_context_from_user_query(chat_thread : list) -> None:
     """
     :param user_query: The chat thread that we need to extract additional context from, based on the last user query
     :type user_query: list
-    :return: The additional context extracted from the user query
-    :rtype: str
+    :return: None (The additional context is written to user_context.txt)
     """
     # Use the OpenAI API to generate the additional context based on the user query
     prompt = f"""

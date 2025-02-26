@@ -12,10 +12,12 @@ import { IconArrowUp } from "@/components/ui/icons";
 import Link from "next/link";
 import SummaryCard from "@/components/cards/summarycard";
 import Image from "next/image";
+import { useAppState } from "@/context/StateContext";
 export const maxDuration = 30;
 
 export default function Chat() {
     const [messages, setMessages] = useState<[]>([]);
+    const { activeCases } = useAppState();
     // const [messages, setMessages] = useState<CoreMessage[]>([]);
     const [input, setInput] = useState<string>("");
 
@@ -62,18 +64,16 @@ export default function Chat() {
 
         const temp = input;
         setInput("");
-        const result = await continueTextConversation(messages, temp);
+        let result = await continueTextConversation(messages, temp);
+        if (activeCases.length < 1) {
+            result = result.slice(1);
+        } else if (result.length <= 3) {
+            const lines = result[0].content.split("\n");
+            result[0].content = lines.slice(14).join("\n");
+        }
         setMessages(result);
 
         localStorage.setItem("chatMessages", JSON.stringify(result)); // Update storage
-        console.log(
-            "chat side----------------------------------------------------------------"
-        );
-        console.log(result);
-        console.log(
-            "chat side----------------------------------------------------------------"
-        );
-        console.log(messages);
 
         //   for await (const content of readStreamableValue(result)) {
         //     const updatedMessages = [

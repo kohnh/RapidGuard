@@ -81,6 +81,7 @@ def ask() -> str:
 
             # generate new solution based on the latest fire situation and updated user context
             new_solution = generate_solution()
+            new_solution = "I have updated the solution based on the latest fire situation and the context that you have provided. \n " + new_solution
             updated_conversation = conversation + [{"role": "assistant", "content": new_solution}]
 
             return jsonify({"conversation": updated_conversation})
@@ -92,7 +93,35 @@ def ask() -> str:
         return jsonify({"error": str(e)}), 500
 
 
-if __name__ == '__main__':
+@app.route('/context_update', methods=['POST'])
+def context_update():
+    """
+    :return: An updated message thread containing the old message thread plus the new solution generated based on the updated fire situation and user context
+    """
+
+    # Expecting a JSON payload with 'conversation' (list of messages)
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "Invalid JSON payload."}), 400
+
+    conversation = data.get("conversation")
+
+    # Ensure the conversation is a list
+    if not isinstance(conversation, list):
+        return jsonify({"error": "'conversation' must be a list of message objects."}), 400
     
+    try:
+        # generate new solution based on the latest fire situation and updated user context
+        new_solution = generate_solution()
+        new_solution = "I have updated the solution based on the latest fire situation and your context. \n" + new_solution
+        updated_conversation = conversation + [{"role": "assistant", "content": new_solution}]
+
+        return jsonify({"conversation": updated_conversation})
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+if __name__ == '__main__':
+
     # Run the app using SocketIO's run method to enable real-time communication.
     socketio.run(app, debug=True)

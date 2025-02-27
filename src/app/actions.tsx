@@ -18,43 +18,79 @@ export interface Message {
 
 // Streaming Chat
 export async function continueTextConversation(
-    messages: CoreMessage[],
-    input: string
+  messages: CoreMessage[],
+  input: string
 ) {
-    try {
-        const response = await fetch("http://54.161.142.111:5000/ask", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                conversation: messages,
-                question: input,
-                initial_solution: "<solution text from /generate_solution>",
-            }),
-        });
+  try {
+    // Append the new user message to the conversation array
+    const updatedConversation = [
+      ...messages,
+      { role: "user", content: input }
+    ];
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+    const response = await fetch("http://3.88.252.222:5000/ask", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      // Send only the conversation, as expected by the Flask endpoint.
+      body: JSON.stringify({ conversation: updatedConversation })
+    });
 
-        const data = await response.json();
-        console.log("Conversation:", data.conversation);
-
-        return data.conversation; // Ensure the function properly returns the conversation array
-    } catch (error) {
-        console.error("Error:", error);
-        return []; // Return an empty array in case of failure
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    // const result = await streamText({
-    //     model: google("gemini-1.5-flash"),
-    //     // model: openai("gpt-4-turbo"),
-    //     messages,
-    // });
 
-    // const stream = createStreamableValue(result.textStream);
-    // return stream.value;
+    const data = await response.json();
+    console.log("Updated Conversation:", data.conversation);
+
+    // Return the updated conversation array received from the Flask endpoint.
+    return data.conversation;
+  } catch (error) {
+    console.error("Error:", error);
+    return []; // Return an empty array in case of failure
+  }
 }
+
+// // Streaming Chat
+// export async function continueTextConversation(
+//     messages: CoreMessage[],
+//     input: string
+// ) {
+//     try {
+//         const response = await fetch("http://3.88.252.222:5000/ask", {
+//             method: "POST",
+//             headers: {
+//                 "Content-Type": "application/json",
+//             },
+//             body: JSON.stringify({
+//                 conversation: messages,
+//                 question: input,
+//                 initial_solution: "<solution text from /generate_solution>",
+//             }),
+//         });
+
+//         if (!response.ok) {
+//             throw new Error(`HTTP error! Status: ${response.status}`);
+//         }
+
+//         const data = await response.json();
+//         console.log("Conversation:", data.conversation);
+
+//         return data.conversation; // Ensure the function properly returns the conversation array
+//     } catch (error) {
+//         console.error("Error:", error);
+//         return []; // Return an empty array in case of failure
+//     }
+//     // const result = await streamText({
+//     //     model: google("gemini-1.5-flash"),
+//     //     // model: openai("gpt-4-turbo"),
+//     //     messages,
+//     // });
+
+//     // const stream = createStreamableValue(result.textStream);
+//     // return stream.value;
+// }
 
 // Gen UIs
 export async function continueConversation(history: Message[]) {

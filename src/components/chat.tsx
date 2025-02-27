@@ -18,6 +18,7 @@ export default function Chat() {
     const [messages, setMessages] = useState<CoreMessage[]>([]);
     const { activeCases } = useAppState();
     const [input, setInput] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
 
     // Create a ref to always have access to the latest conversation state.
     const messagesRef = useRef(messages);
@@ -85,6 +86,7 @@ export default function Chat() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setLoading(true);
         // Append the user's input to the conversation.
         const newMessages = [...messages, { content: input, role: "user" }];
         // Optimistically update the UI and save to localStorage.
@@ -96,6 +98,7 @@ export default function Chat() {
         const result = await continueTextConversation(newMessages);
         setMessages(result);
         localStorage.setItem("chatMessages", JSON.stringify(result));
+        setLoading(false);
     };
 
     return (
@@ -127,6 +130,11 @@ export default function Chat() {
                     <Card className="p-2">
                         <form onSubmit={handleSubmit}>
                             <div className="flex">
+                                {loading ? (
+                                    <div className="animate-spin rounded-full h-8 w-8 border-t-4 border-blue-950"></div>
+                                ) : (
+                                    <div></div>
+                                )}
                                 <Input
                                     type="text"
                                     value={input}

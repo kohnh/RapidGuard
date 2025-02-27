@@ -28,7 +28,7 @@ export async function continueTextConversation(
       { role: "user", content: input }
     ];
 
-    const response = await fetch("http://3.88.252.222:5000/ask", {
+    const response = await fetch("http://54.167.238.174:5000/ask", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -58,7 +58,7 @@ export async function continueTextConversation(
 //     input: string
 // ) {
 //     try {
-//         const response = await fetch("http://3.88.252.222:5000/ask", {
+//         const response = await fetch("http://54.167.238.174:5000/ask", {
 //             method: "POST",
 //             headers: {
 //                 "Content-Type": "application/json",

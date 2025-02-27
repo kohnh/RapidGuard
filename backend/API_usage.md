@@ -1,177 +1,122 @@
 # Fire Incident API Endpoints Documentation
 
-**Base URL:** `http://54.161.142.111:5000`
+**Base URL:** `http://54.167.238.174:5000`
 
 ---
 
-## 1. POST `/image_context`
+## 1. POST `/ask`
 
 **Description:**  
-Analyzes a CCTV image for fire detection. Returns a formatted response detailing the fire (if detected) or indicates that no fire or smoke is present.
+Handles interactive conversations with an AI assistant for fire incident management. Depending on the last message in the conversation thread, the endpoint either answers a direct question or updates the fire response solution based on new context.
 
 ### Request Details
 
-- **Content-Type:** `multipart/form-data`
+- **Content-Type:** `application/json`
 - **Parameters:**  
-  - **image** (File): JPEG image file uploaded with the key `"image"`.
-  - **cctv_number** (String): Identifier for the CCTV camera. Must match one of the keys defined in the CCTV locations mapping.
+  - **conversation** (Array): An array of message objects representing the current conversation thread. Each message object should include:
+    - **role** (String): e.g., `"user"`, `"assistant"`, or `"system"`.
+    - **content** (String): The text content of the message.
 
 ### Example Request (cURL)
 ```bash
-curl -X POST http://54.161.142.111:5000/image_context \
-  -F "image=@fire_tampines_mall.jpeg" \
-  -F "cctv_number=5"
-```
-
-
-### Example Request (JavaScript - using fetch)
-```javascript
-const formData = new FormData();
-formData.append('image', fileInput.files[0]); // fileInput: HTML input element for file selection
-formData.append('cctv_number', '5');
-
-fetch('http://54.161.142.111:5000/image_context', {
-  method: 'POST',
-  body: formData,
-})
-  .then(response => response.json())
-  .then(data => console.log('Image Context:', data.response))
-  .catch(error => console.error('Error:', error));
-```
-
-### Response
-Success (HTTP 200):
-```json
-{
-    "response": "<OpenAI-generated analysis text>"
-}
-```
-
-Error (HTTP 400/500):
-```json
-{
-    "error": "<Error message>"
-}
-```
-
-## 2. POST /generate_solution
-
-Description:
-Generates a detailed fire response plan based on the context provided by the image analysis. The plan includes multiple phases and integrates data such as manpower, mall layout, fire alarm stations, and the fire management SOP.
-
-### Request Details
-Content-Type: application/json
-
-Payload:
-```json
-{
-    "context": "<Context text from /image_context>"
-}
-```
-
-### Example Request (cURL)
-```bash
-curl -X POST http://54.161.142.111:5000/generate_solution \
+curl -X POST http://54.167.238.174:5000/ask \
   -H "Content-Type: application/json" \
-  -d '{"context": "context details from /image_context"}'
+  -d '{
+        "conversation": [
+            {"role": "user", "content": "Is there any update on the fire situation?"}
+        ]
+      }'
 ```
-
 ### Example Request (JavaScript - using fetch)
 ```javascript
-fetch('http://54.161.142.111:5000/generate_solution', {
+fetch('http://54.167.238.174:5000/ask', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-    context: "context details from /image_context"
+    conversation: [
+      { role: "user", content: "Is there any update on the fire situation?" }
+    ]
   })
 })
   .then(response => response.json())
-  .then(data => console.log('Generated Solution:', data.response))
+  .then(data => console.log('Conversation:', data.conversation))
   .catch(error => console.error('Error:', error));
 ```
 
 ### Response
-Success (HTTP 200):
+
+**Success (HTTP 200):**
 ```json
 {
-    "response": "<OpenAI-generated fire response plan>"
+    "conversation": [
+        {"role": "system", "content": "<Default system prompt with context>"},
+        {"role": "user", "content": "Is there any update on the fire situation?"},
+        {"role": "assistant", "content": "<Response based on the question or updated context>"}
+    ]
 }
 ```
 
-Error (HTTP 400/500):
+**Error (HTTP 400):**
 ```json
 {
     "error": "<Error message>"
 }
 ```
 
-## 3. POST /ask
-Description:
-Facilitates an interactive conversation with an AI assistant for follow-up questions or clarifications regarding the fire response plan. Maintains a conversation thread that includes both prior messages and new queries.
+## 2. POST `/context_update`
+
+**Description:**
+Updates the fire response solution using the latest fire situation and any additional user context. This endpoint appends a new solution message to the existing conversation thread.
 
 ### Request Details
-Content-Type: application/json
-
-Payload:
-```json
-{
-    "conversation": [
-        // Array of message objects, e.g.,
-        // {"role": "user", "content": "Where is the fire?"}
-    ],
-    "question": "<New question or context update>",
-    "initial_solution": "<Response text from /generate_solution>"
-}
-```
+- **Content-Type:** `application/json`
+- **Parameters:**
+  - **conversation** (Array):  An array of message objects representing the current conversation thread.
 
 ### Example Request (cURL)
 ```bash
-curl -X POST http://54.161.142.111:5000/ask \
+curl -X POST http://54.167.238.174:5000/context_update \
   -H "Content-Type: application/json" \
   -d '{
-        "conversation": [],
-        "question": "Where is the fire?",
-        "initial_solution": "<solution text from /generate_solution>"
+        "conversation": [
+            {"role": "user", "content": "Please update the fire response plan with the latest details."}
+        ]
       }'
 ```
 
 ### Example Request (JavaScript - using fetch)
 ```javascript
-fetch('http://54.161.142.111:5000/ask', {
+fetch('http://54.167.238.174:5000/context_update', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-    conversation: [],
-    question: "Where is the fire?",
-    initial_solution: "<solution text from /generate_solution>"
+    conversation: [
+      { role: "user", content: "Please update the fire response plan with the latest details." }
+    ]
   })
 })
   .then(response => response.json())
-  .then(data => {
-    // data.conversation is an array with the conversation thread
-    console.log('Conversation:', data.conversation);
-  })
+  .then(data => console.log('Updated Conversation:', data.conversation))
   .catch(error => console.error('Error:', error));
 ```
 
 ### Response
-Success (HTTP 200):
+
+**Success (HTTP 200):**
 ```json
 {
     "conversation": [
-        {"role": "system", "content": "<Default system prompt with context>"},
-        {"role": "user", "content": "<User's question>"},
-        {"role": "assistant", "content": "<Assistant's response>"}
-        // Additional messages as the conversation continues.
+        {"role": "user", "content": "Please update the fire response plan with the latest details."},
+        {"role": "assistant", "content": "I have updated the solution based on the latest fire situation and your context. \n <Updated solution text>"}
     ]
 }
 ```
 
-Error (HTTP 400/500):
+**Error (HTTP 400):**
 ```json
 {
     "error": "<Error message>"

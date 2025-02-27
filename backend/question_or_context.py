@@ -42,6 +42,6 @@ def is_question_or_context(chat_thread : list) -> str:
 
     response_content = completion.choices[0].message.content
 
-    print("Type of the last message in the chat thread:", response_content)
+    # print("Type of the last message in the chat thread:", response_content)
 
     return response_content

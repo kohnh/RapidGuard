@@ -1,6 +1,6 @@
 import requests
 
-url_ask = "http://54.167.238.174:5000/context_update"
+url_ask = "http://35.173.134.171:5000/context_update"
 # url_ask = "http://127.0.0.1:5000/context_update"
 
 payload_context_update = {

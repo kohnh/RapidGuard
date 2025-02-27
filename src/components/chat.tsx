@@ -15,21 +15,22 @@ import io from "socket.io-client";
 import axios from "axios";
 
 export default function Chat() {
-  const [messages, setMessages] = useState<CoreMessage[]>([]);
-  const { activeCases } = useAppState();
-  const [input, setInput] = useState<string>("");
+    const [messages, setMessages] = useState<CoreMessage[]>([]);
+    const { activeCases } = useAppState();
+    const [input, setInput] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
 
-  // Create a ref to always have access to the latest conversation state.
-  const messagesRef = useRef(messages);
-  useEffect(() => {
-    messagesRef.current = messages;
-  }, [messages]);
+    // Create a ref to always have access to the latest conversation state.
+    const messagesRef = useRef(messages);
+    useEffect(() => {
+        messagesRef.current = messages;
+    }, [messages]);
 
-  // Clear the chat state and localStorage on initial load.
-  useEffect(() => {
-    localStorage.removeItem("chatMessages");
-    setMessages([]);
-  }, []);
+    // Clear the chat state and localStorage on initial load.
+    useEffect(() => {
+        localStorage.removeItem("chatMessages");
+        setMessages([]);
+    }, []);
 
   // Setup the Socket.IO client to listen for file change events.
   useEffect(() => {
@@ -55,10 +56,10 @@ export default function Chat() {
       console.log("Socket connected with id:", socket.id);
     });
 
-    // Optionally, log connection errors.
-    socket.on("connect_error", (error) => {
-      console.error("Socket connection error:", error);
-    });
+        // Optionally, log connection errors.
+        socket.on("connect_error", (error) => {
+            console.error("Socket connection error:", error);
+        });
 
     // Listen for the "file_changed" event.
     socket.on("file_changed", (data: any) => {
@@ -85,86 +86,98 @@ export default function Chat() {
         });
     });
 
-    // Cleanup the socket connection when the component unmounts.
-    return () => {
-      socket.disconnect();
+        // Cleanup the socket connection when the component unmounts.
+        return () => {
+            socket.disconnect();
+        };
+    }, []);
+
+    const clearChat = () => {
+        localStorage.removeItem("chatMessages");
+        setMessages([]);
     };
-  }, []);
 
-  const clearChat = () => {
-    localStorage.removeItem("chatMessages");
-    setMessages([]);
-  };
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+        // Append the user's input to the conversation.
+        const newMessages = [...messages, { content: input, role: "user" }];
+        // Optimistically update the UI and save to localStorage.
+        setMessages(newMessages);
+        localStorage.setItem("chatMessages", JSON.stringify(newMessages));
+        setInput("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    // Append the user's input to the conversation.
-    const newMessages = [...messages, { content: input, role: "user" }];
-    // Optimistically update the UI and save to localStorage.
-    setMessages(newMessages);
-    localStorage.setItem("chatMessages", JSON.stringify(newMessages));
-    setInput("");
+        // Query the Flask endpoint with the full conversation.
+        const result = await continueTextConversation(newMessages);
+        setMessages(result);
+        localStorage.setItem("chatMessages", JSON.stringify(result));
+        setLoading(false);
+    };
 
-    // Query the Flask endpoint with the full conversation.
-    const result = await continueTextConversation(newMessages);
-    setMessages(result);
-    localStorage.setItem("chatMessages", JSON.stringify(result));
-  };
-
-  return (
-    <div className="group w-full overflow-auto custom-scrollbar">
-      {messages.length <= 0 ? (
-        <SummaryCard />
-      ) : (
-        <div className="max-w-xl mx-auto mt-10 mb-24">
-          {messages.map((message, index) => (
-            <div key={index} className="whitespace-pre-wrap flex mb-5">
-              <div
-                className={`${
-                  message.role === "user"
-                    ? "bg-slate-700 ml-auto"
-                    : "bg-transparent"
-                } p-2 rounded-lg`}
-              >
-                {message.content}
-              </div>
+    return (
+        <div className="group w-full overflow-auto custom-scrollbar">
+            {messages.length <= 0 ? (
+                <SummaryCard />
+            ) : (
+                <div className="max-w-xl mx-auto mt-10 mb-24">
+                    {messages.map((message, index) => (
+                        <div
+                            key={index}
+                            className="whitespace-pre-wrap flex mb-5"
+                        >
+                            <div
+                                className={`${
+                                    message.role === "user"
+                                        ? "bg-slate-700 ml-auto"
+                                        : "bg-cyan-900"
+                                } p-2 rounded-lg`}
+                            >
+                                {message.content}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
+            <div className="fixed inset-x-0 bottom-10 w-full ">
+                <div className="w-full max-w-xl mx-auto">
+                    <Card className="p-2">
+                        <form onSubmit={handleSubmit}>
+                            <div className="flex">
+                                {loading ? (
+                                    <div className="animate-spin rounded-full h-8 w-8 border-t-4 border-blue-950"></div>
+                                ) : (
+                                    <div></div>
+                                )}
+                                <Input
+                                    type="text"
+                                    value={input}
+                                    onChange={(event) =>
+                                        setInput(event.target.value)
+                                    }
+                                    className="w-[95%] mr-2 border-0 ring-offset-0 focus-visible:ring-0 focus-visible:outline-none focus:outline-none focus:ring-0 ring-0 focus-visible:border-none border-transparent focus:border-transparent focus-visible:ring-none"
+                                    placeholder="Ask me anything..."
+                                />
+                                {messages.length <= 0 ? (
+                                    <div></div>
+                                ) : (
+                                    <Button onClick={clearChat}>
+                                        <Image
+                                            src="/refresh.svg"
+                                            alt="refresh"
+                                            width={22}
+                                            height={22}
+                                        />
+                                    </Button>
+                                )}
+                                <Button disabled={!input.trim()}>
+                                    <IconArrowUp />
+                                </Button>
+                            </div>
+                            {/* Additional UI elements can be added here */}
+                        </form>
+                    </Card>
+                </div>
             </div>
-          ))}
         </div>
-      )}
-      <div className="fixed inset-x-0 bottom-10 w-full ">
-        <div className="w-full max-w-xl mx-auto">
-          <Card className="p-2">
-            <form onSubmit={handleSubmit}>
-              <div className="flex">
-                <Input
-                  type="text"
-                  value={input}
-                  onChange={(event) => setInput(event.target.value)}
-                  className="w-[95%] mr-2 border-0 ring-offset-0 focus-visible:ring-0 focus-visible:outline-none focus:outline-none focus:ring-0 ring-0 focus-visible:border-none border-transparent focus:border-transparent focus-visible:ring-none"
-                  placeholder="Ask me anything..."
-                />
-                {messages.length <= 0 ? (
-                  <div></div>
-                ) : (
-                  <Button onClick={clearChat}>
-                    <Image
-                      src="/refresh.svg"
-                      alt="refresh"
-                      width={22}
-                      height={22}
-                    />
-                  </Button>
-                )}
-                <Button disabled={!input.trim()}>
-                  <IconArrowUp />
-                </Button>
-              </div>
-              {/* Additional UI elements can be added here */}
-            </form>
-          </Card>
-        </div>
-      </div>
-    </div>
-  );
+    );
 }

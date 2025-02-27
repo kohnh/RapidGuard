@@ -41,7 +41,7 @@ export default function Settings() {
     const [pushNotifications, setPushNotifications] = useState("Disabled");
     const [alertFrequency, setAlertFrequency] = useState("High");
     return (
-        <div className="p-4">
+        <div className="group p-4 overflow-auto custom-scrollbar">
             <div className="space-y-6">
                 <div className="bg-[#1a1a1a] p-4 rounded">
                     <h3 className="text-gray-200 font-medium mb-4">

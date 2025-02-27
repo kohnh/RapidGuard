@@ -116,7 +116,7 @@ export default function Chat() {
                                 className={`${
                                     message.role === "user"
                                         ? "bg-slate-700 ml-auto"
-                                        : "bg-transparent"
+                                        : "bg-cyan-900"
                                 } p-2 rounded-lg`}
                             >
                                 {message.content}

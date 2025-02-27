@@ -26,7 +26,7 @@ export default function Header() {
                 )}
             >
                 <Image src="/drms.svg" alt="DRMS Logo" width={28} height={28} />
-                <span>Disaster Recovery Management System (DRMS)</span>
+                <span>RapidGuard (DRMS)</span>
             </Link>
 
             {/* Mobile Menu Toggle */}

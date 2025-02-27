@@ -1,7 +1,7 @@
 import requests
 
-# url_ask = "http://54.161.142.111:5000/context_update"
-url_ask = "http://127.0.0.1:5000/context_update"
+url_ask = "http://3.88.252.222:5000/context_update"
+# url_ask = "http://127.0.0.1:5000/context_update"
 
 payload_context_update = {
     "conversation":[

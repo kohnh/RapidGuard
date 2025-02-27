@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS  # Import Flask-CORS
 from openai import OpenAI
 import os
 from dotenv import load_dotenv
@@ -16,8 +17,9 @@ from flask_socketio import SocketIO
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS on all routes
 app.config['SECRET_KEY'] = "mysecretkey"  # required for SocketIO
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 # Create the OpenAI client using your API key from the environment variables
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
@@ -67,7 +69,7 @@ def ask() -> str:
     try:
         # Feed the whole chat into question_or_context to check if the last message in the conversation is a question or a context update
         type_of_user_response = is_question_or_context(conversation)
-        print("Type of the last message in the chat thread:", is_question_or_context)
+        # print("Type of the last message in the chat thread:", is_question_or_context)
         
         # If the last message is a question, just answer it
         if type_of_user_response == "question":
@@ -115,7 +117,7 @@ def context_update():
         new_solution = generate_solution()
         new_solution = "I have updated the solution based on the latest fire situation and your context. \n" + new_solution
         updated_conversation = conversation + [{"role": "assistant", "content": new_solution}]
-
+        print("New Solution Generated")
         return jsonify({"conversation": updated_conversation})
         
     except Exception as e:
@@ -124,4 +126,6 @@ def context_update():
 if __name__ == '__main__':
 
     # Run the app using SocketIO's run method to enable real-time communication.
-    socketio.run(app, debug=True)
+    # socketio.run(app, debug=True)
+
+    socketio.run(app, host="127.0.0.1", port=5001, debug=True)

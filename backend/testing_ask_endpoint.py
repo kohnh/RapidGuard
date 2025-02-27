@@ -4,8 +4,8 @@ import requests
 # Ask a followup question #
 ###########################
 
-# url_ask = "http://54.161.142.111:5000/ask"
-url_ask = "http://127.0.0.1:5000/ask"
+url_ask = "http://54.161.142.111:5000/ask"
+# url_ask = "http://127.0.0.1:5000/ask"
 
 payload_followup_question = {
     "conversation":[

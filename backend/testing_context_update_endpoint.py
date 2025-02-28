@@ -1,7 +1,8 @@
 import requests
+import os
 
-url_ask = "http://35.173.134.171:5000/context_update"
-# url_ask = "http://127.0.0.1:5000/context_update"
+host_url = os.getenv("HOST_IP_ADDRESS")
+url_ask = f"http://{host_url}:5000/context_update"
 
 payload_context_update = {
     "conversation":[

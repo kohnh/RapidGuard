@@ -1,6 +1,6 @@
 # Fire Incident API Endpoints Documentation
 
-**Base URL:** `http://35.173.134.171:5000`
+**Base URL:** `http://<host_ip_address>:5000`
 
 ---
 
@@ -19,7 +19,7 @@ Handles interactive conversations with an AI assistant for fire incident managem
 
 ### Example Request (cURL)
 ```bash
-curl -X POST http://35.173.134.171:5000/ask \
+curl -X POST http://<host_ip_address>:5000/ask \
   -H "Content-Type: application/json" \
   -d '{
         "conversation": [
@@ -29,7 +29,7 @@ curl -X POST http://35.173.134.171:5000/ask \
 ```
 ### Example Request (JavaScript - using fetch)
 ```javascript
-fetch('http://35.173.134.171:5000/ask', {
+fetch('http://<host_ip_address>:5000/ask', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
@@ -77,7 +77,7 @@ Updates the fire response solution using the latest fire situation and any addit
 
 ### Example Request (cURL)
 ```bash
-curl -X POST http://35.173.134.171:5000/context_update \
+curl -X POST http://<host_ip_address>:5000/context_update \
   -H "Content-Type: application/json" \
   -d '{
         "conversation": [
@@ -88,7 +88,7 @@ curl -X POST http://35.173.134.171:5000/context_update \
 
 ### Example Request (JavaScript - using fetch)
 ```javascript
-fetch('http://35.173.134.171:5000/context_update', {
+fetch('http://<host_ip_address>:5000/context_update', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'

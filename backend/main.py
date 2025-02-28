@@ -1,3 +1,7 @@
+import eventlet
+eventlet.monkey_patch()
+import time
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS  # Import Flask-CORS
 from openai import OpenAI
@@ -20,6 +24,7 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS on all routes
 app.config['SECRET_KEY'] = "mysecretkey"  # required for SocketIO
 socketio = SocketIO(app, cors_allowed_origins="*")
+host_url = os.getenv("HOST_IP_ADDRESS")
 
 # Create the OpenAI client using your API key from the environment variables
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
@@ -27,21 +32,31 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 # List of filenames to monitor
 files_to_watch = ["fire_context.txt", "user_context.txt"]
 
-# Define a file system event handler that emits a SocketIO event on file creation or modification
+# Define a file system event handler that debounces events so that only one event gets emitted
 class FileChangeHandler(FileSystemEventHandler):
+    # Dictionary to store the last emission time for each file
+    last_emission = {}
+
+    def emit_event(self, event, event_type):
+        filename = os.path.basename(event.src_path)
+        now = time.time()
+        # If an event for this file was emitted less than 1 second ago, skip emitting again.
+        if filename in self.last_emission and (now - self.last_emission[filename] < 1):
+            return
+        self.last_emission[filename] = now
+        print(f"File {event_type}: {filename}. Emitting event via SocketIO.")
+        socketio.emit("file_changed", {"message": f"{filename} {event_type}"})
+
     def on_created(self, event):
         # When a file is created, check if it's one we care about
         if any(event.src_path.endswith(filename) for filename in files_to_watch):
-            filename = os.path.basename(event.src_path)
-            print(f"File created: {filename}. Emitting event via SocketIO.")
-            socketio.emit("file_changed", {"message": f"{filename} created"})
+            self.emit_event(event, "created")
 
     def on_modified(self, event):
         # When a file is modified, check if it's one we care about
         if any(event.src_path.endswith(filename) for filename in files_to_watch):
-            filename = os.path.basename(event.src_path)
-            print(f"File modified: {filename}. Emitting event via SocketIO.")
-            socketio.emit("file_changed", {"message": f"{filename} modified"})
+            self.emit_event(event, "modified")
+
 
 # Set up and start the observer to watch the current directory (adjust path as needed)
 observer = Observer()
@@ -128,4 +143,4 @@ if __name__ == '__main__':
     # Run the app using SocketIO's run method to enable real-time communication.
     # socketio.run(app, debug=True)
 
-    socketio.run(app, host="host_url", port=5000, debug=True)
+    socketio.run(app, host=host_url, port=5000, debug=True)

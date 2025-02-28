@@ -42,8 +42,8 @@ class FileChangeHandler(FileSystemEventHandler):
         # If a timer already exists for this file, cancel it.
         if filename in self.timers:
             self.timers[filename].cancel()
-        # Schedule a new timer to emit the event after 2 seconds of no further changes.
-        self.timers[filename] = eventlet.spawn_after(2, self.emit_event, filename)
+        # Schedule a new timer to emit the event after 3 seconds of no further changes.
+        self.timers[filename] = eventlet.spawn_after(3, self.emit_event, filename)
 
     def emit_event(self, filename):
         # Remove the timer entry as it's now firing.

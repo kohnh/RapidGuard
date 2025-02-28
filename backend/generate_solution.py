@@ -39,7 +39,7 @@ def generate_solution() -> str:
             
             You have been alerted to a potential fire through the CCTV system. 
             
-            You are to come up with detailed actionable steps using each security guard's name to manage the situation with the security team with reference to the fire response and management SOP, context of the fire, and the manpower available, using the following format below as a guide, do not include any headers, introduction or conclusion, if there are any steps that are not applicable or has been completed, please indicate so:
+            You are to come up with detailed actionable steps using each security guard's name to manage the situation with the security team with reference to the fire response and management SOP, context of the fire, and the manpower available, using the following format below as a guide, do not include any headers, introduction or conclusion, if there are any steps that are not applicable or has been completed, please indicate so, do not add newline character after each sentence, you are to return the response in markdown format:
 
             # Fire Response and Management Plan
 

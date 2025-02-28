@@ -128,4 +128,4 @@ if __name__ == '__main__':
     # Run the app using SocketIO's run method to enable real-time communication.
     # socketio.run(app, debug=True)
 
-    socketio.run(app, host="35.173.134.171", port=5000, debug=True)
+    socketio.run(app, host="host_url", port=5000, debug=True)

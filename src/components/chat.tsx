@@ -13,6 +13,7 @@ import Image from "next/image";
 import { useAppState } from "@/context/StateContext";
 import io from "socket.io-client";
 import axios from "axios";
+import ReactMarkdown from "react-markdown";
 
 export default function Chat() {
     const [messages, setMessages] = useState<CoreMessage[]>([]);
@@ -123,7 +124,7 @@ export default function Chat() {
                                         : "bg-cyan-900"
                                 } p-2 rounded-lg`}
                             >
-                                {message.content}
+                                <ReactMarkdown>{message.content}</ReactMarkdown>
                             </div>
                         </div>
                     ))}

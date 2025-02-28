@@ -35,16 +35,7 @@ export default function Chat() {
   // Setup the Socket.IO client to listen for file change events.
   useEffect(() => {
     // Create a socket connection to the backend.
-    // const socket = io("http://35.173.134.171:5000", { transports: ["websocket"] });
-    // const socket = io("http://35.173.134.171:5000");
-    // const socket = io("http://35.173.134.171:5000", {
-    //   reconnection: true,
-    //   reconnectionAttempts: Infinity, // Keep trying indefinitely
-    //   reconnectionDelay: 1000,         // Delay between attempts
-    //   // Optionally, remove transports to allow fallback: transports: ["websocket"]
-    // });
-    // const socket = io("http://35.173.134.171:5000", { transports: ["websocket"] });
-    const socket = io("http://35.173.134.171:5000", {
+    const socket = io("http://54.159.85.234:5000", {
       transports: ["websocket"],
       reconnection: true,
     });
@@ -67,7 +58,7 @@ export default function Chat() {
       
       // Trigger the /context_update endpoint to get the updated conversation.
       axios
-        .post("http://35.173.134.171:5000/context_update", {
+        .post("http://54.159.85.234:5000/context_update", {
           conversation: messagesRef.current,
         })
         .then((response) => {

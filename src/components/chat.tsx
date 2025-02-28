@@ -21,6 +21,9 @@ export default function Chat() {
     const [input, setInput] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
 
+    // Track the number of context_update calls.
+    const [contextUpdateCount, setContextUpdateCount] = useState<number>(0);
+
     // Create a ref to always have access to the latest conversation state.
     const messagesRef = useRef(messages);
     useEffect(() => {
@@ -58,25 +61,33 @@ export default function Chat() {
       console.log("Received file_changed event:", data);
       
       // Trigger the /context_update endpoint to get the updated conversation.
-      axios
-        .post("http://54.159.85.234:5000/context_update", {
-          conversation: messagesRef.current,
+    axios.post("http://54.159.85.234:5000/context_update", {
+            conversation: messagesRef.current,
         })
         .then((response) => {
-          console.log("Context update response:", response.data);
-          if (response.data && response.data.conversation) {
-            // Replace the current chat thread with the updated conversation.
-            setMessages(response.data.conversation);
-            localStorage.setItem(
-              "chatMessages",
-              JSON.stringify(response.data.conversation)
-            );
-          }
+            console.log("Context update response:", response.data);
+            if (response.data && response.data.conversation) {
+                // Show the alert based on the number of previous updates.
+                setContextUpdateCount((prevCount) => {
+                    if (prevCount === 0) {
+                        alert("There is a fire! Here is the initial solution based on the latest information we have.");
+                    } else {
+                        alert("We have updates in the fire situation, here is the updated solution!");
+                    }
+                    return prevCount + 1;
+                });
+                // Replace the current chat thread with the updated conversation.
+                setMessages(response.data.conversation);
+                localStorage.setItem(
+                    "chatMessages",
+                    JSON.stringify(response.data.conversation)
+                );
+            }
         })
         .catch((error) => {
-          console.error("Error updating conversation:", error);
+            console.error("Error updating conversation:", error);
         });
-    });
+        });
 
         // Cleanup the socket connection when the component unmounts.
         return () => {

@@ -32,31 +32,36 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 # List of filenames to monitor
 files_to_watch = ["fire_context.txt", "user_context.txt"]
 
-# Define a file system event handler that debounces events so that only one event gets emitted
+# Define a file system event handler that debounces events for the same file
 class FileChangeHandler(FileSystemEventHandler):
-    # Dictionary to store the last emission time for each file
-    last_emission = {}
+    # Dictionary to store timer objects for each file
+    timers = {}
 
-    def emit_event(self, event, event_type):
+    def schedule_emit(self, event):
         filename = os.path.basename(event.src_path)
-        now = time.time()
-        # If an event for this file was emitted less than 1 second ago, skip emitting again.
-        if filename in self.last_emission and (now - self.last_emission[filename] < 1):
-            return
-        self.last_emission[filename] = now
-        print(f"File {event_type}: {filename}. Emitting event via SocketIO.")
-        socketio.emit("file_changed", {"message": f"{filename} {event_type}"})
+        # If a timer already exists for this file, cancel it.
+        if filename in self.timers:
+            self.timers[filename].cancel()
+        # Schedule a new timer to emit the event after 2 seconds of no further changes.
+        self.timers[filename] = eventlet.spawn_after(2, self.emit_event, filename)
+
+    def emit_event(self, filename):
+        # Remove the timer entry as it's now firing.
+        if filename in self.timers:
+            del self.timers[filename]
+        # Emit a generic event for the file that has changed.
+        print(f"File changed: {filename}. Emitting event via SocketIO.")
+        socketio.emit("file_changed", {"message": f"{filename} changed"})
 
     def on_created(self, event):
         # When a file is created, check if it's one we care about
-        if any(event.src_path.endswith(filename) for filename in files_to_watch):
-            self.emit_event(event, "created")
+        if any(event.src_path.endswith(f) for f in files_to_watch):
+            self.schedule_emit(event)
 
     def on_modified(self, event):
         # When a file is modified, check if it's one we care about
-        if any(event.src_path.endswith(filename) for filename in files_to_watch):
-            self.emit_event(event, "modified")
-
+        if any(event.src_path.endswith(f) for f in files_to_watch):
+            self.schedule_emit(event)
 
 # Set up and start the observer to watch the current directory (adjust path as needed)
 observer = Observer()

@@ -23,6 +23,8 @@ export default function Chat() {
 
     // Track the number of context_update calls.
     const [contextUpdateCount, setContextUpdateCount] = useState<number>(0);
+    // New state to manage custom alert messages.
+    const [alertMessage, setAlertMessage] = useState<string | null>(null);
 
     // Create a ref to always have access to the latest conversation state.
     const messagesRef = useRef(messages);
@@ -36,57 +38,65 @@ export default function Chat() {
         setMessages([]);
     }, []);
 
-  // Setup the Socket.IO client to listen for file change events.
-  useEffect(() => {
-    // Create a socket connection to the backend.
-    const socket = io("http://54.159.85.234:5000", {
-      transports: ["websocket"],
-      reconnection: true,
-    });
-    
+    // Automatically dismiss the alert after 5 seconds.
+    useEffect(() => {
+        if (alertMessage) {
+            const timer = setTimeout(() => {
+                setAlertMessage(null);
+            }, 5000);
+            return () => clearTimeout(timer);
+        }
+    }, [alertMessage]);
 
-    
-    // Log when the socket is connected.
-    socket.on("connect", () => {
-      console.log("Socket connected with id:", socket.id);
-    });
+    // Setup the Socket.IO client to listen for file change events.
+    useEffect(() => {
+        // Create a socket connection to the backend.
+        const socket = io("http://54.159.85.234:5000", {
+            transports: ["websocket"],
+            reconnection: true,
+        });
+
+        // Log when the socket is connected.
+        socket.on("connect", () => {
+            console.log("Socket connected with id:", socket.id);
+        });
 
         // Optionally, log connection errors.
         socket.on("connect_error", (error) => {
             console.error("Socket connection error:", error);
         });
 
-    // Listen for the "file_changed" event.
-    socket.on("file_changed", (data: any) => {
-      console.log("Received file_changed event:", data);
-      
-      // Trigger the /context_update endpoint to get the updated conversation.
-    axios.post("http://54.159.85.234:5000/context_update", {
-            conversation: messagesRef.current,
-        })
-        .then((response) => {
-            console.log("Context update response:", response.data);
-            if (response.data && response.data.conversation) {
-                // Show the alert based on the number of previous updates.
-                setContextUpdateCount((prevCount) => {
-                    if (prevCount === 0) {
-                        alert("There is a fire! Here is the initial solution based on the latest information we have.");
-                    } else {
-                        alert("We have updates in the fire situation, here is the updated solution!");
-                    }
-                    return prevCount + 1;
-                });
-                // Replace the current chat thread with the updated conversation.
-                setMessages(response.data.conversation);
-                localStorage.setItem(
-                    "chatMessages",
-                    JSON.stringify(response.data.conversation)
-                );
-            }
-        })
-        .catch((error) => {
-            console.error("Error updating conversation:", error);
-        });
+        // Listen for the "file_changed" event.
+        socket.on("file_changed", (data: any) => {
+            console.log("Received file_changed event:", data);
+
+            // Trigger the /context_update endpoint to get the updated conversation.
+            axios.post("http://54.159.85.234:5000/context_update", {
+                conversation: messagesRef.current,
+            })
+            .then((response) => {
+                console.log("Context update response:", response.data);
+                if (response.data && response.data.conversation) {
+                    // Show a custom alert based on the number of previous updates.
+                    setContextUpdateCount((prevCount) => {
+                        if (prevCount === 0) {
+                            setAlertMessage("There is a fire! Here is the initial solution based on the latest information we have.");
+                        } else {
+                            setAlertMessage("We have updates in the fire situation, here is the updated solution!");
+                        }
+                        return prevCount + 1;
+                    });
+                    // Replace the current chat thread with the updated conversation.
+                    setMessages(response.data.conversation);
+                    localStorage.setItem(
+                        "chatMessages",
+                        JSON.stringify(response.data.conversation)
+                    );
+                }
+            })
+            .catch((error) => {
+                console.error("Error updating conversation:", error);
+            });
         });
 
         // Cleanup the socket connection when the component unmounts.
@@ -118,21 +128,25 @@ export default function Chat() {
     };
 
     return (
-        <div className="group w-full overflow-auto custom-scrollbar">
+        <div className="group w-full overflow-auto custom-scrollbar relative">
+            {/* Custom Alert */}
+            {alertMessage && (
+                <div className="fixed inset-0 flex items-center justify-center z-50">
+                    <div className="bg-white border-4 border-red-500 p-6 rounded shadow-lg text-center text-black">
+                        {alertMessage}
+                    </div>
+                </div>
+            )}
+
             {messages.length <= 0 ? (
                 <SummaryCard />
             ) : (
                 <div className="max-w-xl mx-auto mt-10 mb-24">
                     {messages.map((message, index) => (
-                        <div
-                            key={index}
-                            className="whitespace-pre-wrap flex mb-5"
-                        >
+                        <div key={index} className="whitespace-pre-wrap flex mb-5">
                             <div
                                 className={`${
-                                    message.role === "user"
-                                        ? "bg-slate-700 ml-auto"
-                                        : "bg-cyan-900"
+                                    message.role === "user" ? "bg-slate-700 ml-auto" : "bg-cyan-900"
                                 } p-2 rounded-lg`}
                             >
                                 <ReactMarkdown>{message.content}</ReactMarkdown>
@@ -154,9 +168,7 @@ export default function Chat() {
                                 <Input
                                     type="text"
                                     value={input}
-                                    onChange={(event) =>
-                                        setInput(event.target.value)
-                                    }
+                                    onChange={(event) => setInput(event.target.value)}
                                     className="w-[95%] mr-2 border-0 ring-offset-0 focus-visible:ring-0 focus-visible:outline-none focus:outline-none focus:ring-0 ring-0 focus-visible:border-none border-transparent focus:border-transparent focus-visible:ring-none"
                                     placeholder="Ask me anything..."
                                 />
@@ -176,7 +188,6 @@ export default function Chat() {
                                     <IconArrowUp />
                                 </Button>
                             </div>
-                            {/* Additional UI elements can be added here */}
                         </form>
                     </Card>
                 </div>

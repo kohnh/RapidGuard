@@ -39,9 +39,9 @@ def generate_solution() -> str:
             
             You have been alerted to a potential fire through the CCTV system. 
             
-            You are to come up with detailed actionable steps using each security guard's name to manage the situation with the security team with reference to the fire response and management SOP, context of the fire, and the manpower available, using the following format below as a guide, do not include any headers, introduction or conclusion, if there are any steps that are not applicable or has been completed, please indicate so, do not add newline character after each sentence, you are to return the response in markdown format:
+            You are to come up with detailed actionable steps using each security guard's name to manage the situation with the security team with reference to the fire response and management SOP, context of the fire, and the manpower available, using the following format below as a guide, do not include any headers, introduction or conclusion, do not add newline character after each sentence, you are to return the response in markdown format, and if there are any steps that are not applicable or has been completed, please indicate so:
 
-            # Fire Response and Management Plan
+            **Fire Response and Management Plan**
 
             There are <insert number of security guards present> security guards and <insert number of security managers present> security manager on duty today.
             The security guards are as follows: <names of security guards, separated by commas>.
@@ -52,22 +52,22 @@ def generate_solution() -> str:
 
             In response to the fire detected at <insert location of fire> on <insert date and time fire started>, here is a step-by-step plan for managing the situation based on the given SOP, fire context, and available manpower:
 
-            ## Phase 1: Immediate Detection & Initial Response (0–1 Minute)
+            **Phase 1: Immediate Detection & Initial Response (0–1 Minute)**
             <insert steps based on the SOP, contextualized to the situation>
 
-            ## Phase 2: Emergency Communication & Service Contact (1–2 Minutes)
+            **Phase 2: Emergency Communication & Service Contact (1–2 Minutes)**
             <insert steps based on the SOP, contextualized to the situation>
 
-            ## Phase 3: Evacuation Coordination (2–5 Minutes)
+            **Phase 3: Evacuation Coordination (2–5 Minutes)**
             <insert steps based on the SOP, contextualized to the situation>
 
-            ## Phase 4: On-Site Fire Suppression (If Safe and Trained) (0–10 Minutes)
+            **Phase 4: On-Site Fire Suppression (If Safe and Trained) (0–10 Minutes)**
             <insert steps based on the SOP, contextualized to the situation>
 
-            ## Phase 5: Ongoing Communication & Coordination (Throughout Incident)
+            **Phase 5: Ongoing Communication & Coordination (Throughout Incident)**
             <insert steps based on the SOP, contextualized to the situation>
 
-            ## Phase 6: Securing the Premises & Post-Incident Procedures (After 10 Minutes)
+            **Phase 6: Securing the Premises & Post-Incident Procedures (After 10 Minutes)**
             <insert steps based on the SOP, contextualized to the situation>
 
             

@@ -38,12 +38,12 @@ export default function Chat() {
         setMessages([]);
     }, []);
 
-    // Automatically dismiss the alert after 5 seconds.
+    // Automatically dismiss the alert after 15 seconds.
     useEffect(() => {
         if (alertMessage) {
             const timer = setTimeout(() => {
                 setAlertMessage(null);
-            }, 5000);
+            }, 15000);
             return () => clearTimeout(timer);
         }
     }, [alertMessage]);
@@ -67,8 +67,8 @@ export default function Chat() {
         });
 
         // Listen for the "file_changed" event.
-        socket.on("file_changed", (data: any) => {
-            console.log("Received file_changed event:", data);
+        socket.on("file_changed", (data_from_file_change: any) => {
+            console.log("Received file_changed event:", data_from_file_change);
 
             // Trigger the /context_update endpoint to get the updated conversation.
             axios.post("http://54.159.85.234:5000/context_update", {
@@ -78,20 +78,28 @@ export default function Chat() {
                 console.log("Context update response:", response.data);
                 if (response.data && response.data.conversation) {
                     // Show a custom alert based on the number of previous updates.
-                    setContextUpdateCount((prevCount) => {
-                        if (prevCount === 0) {
-                            setAlertMessage("There is a fire! Here is the initial solution based on the latest information we have.");
-                        } else {
-                            setAlertMessage("We have updates in the fire situation, here is the updated solution!");
-                        }
-                        return prevCount + 1;
-                    });
+                    console.log(data_from_file_change.message)
+                    if (data_from_file_change.message.includes("fire_context.txt")) {
+                        console.log("an alert should appear because fire_context.txt changed")
+                        setContextUpdateCount((prevCount) => {
+                            if (prevCount === 0) {
+                                setAlertMessage("There is a fire! Here is the initial solution based on the latest information we have.");
+                            } else {
+                                setAlertMessage("We have updates in the fire situation, here is the updated solution!");
+                            }
+                            return prevCount + 1;
+                        })
+                    };
+
+                    // parse through the chat thread to remove backticks and the word "markdown"
+                    const cleanedConversation = response.data.conversation.map((msg: CoreMessage) => ({
+                        ...msg,
+                        content: msg.content.replace(/`/g, "").replace(/\bmarkdown\b/gi, "")
+                      }));
+
                     // Replace the current chat thread with the updated conversation.
-                    setMessages(response.data.conversation);
-                    localStorage.setItem(
-                        "chatMessages",
-                        JSON.stringify(response.data.conversation)
-                    );
+                    setMessages(cleanedConversation);
+                    localStorage.setItem("chatMessages", JSON.stringify(cleanedConversation));
                 }
             })
             .catch((error) => {

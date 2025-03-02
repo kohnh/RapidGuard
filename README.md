@@ -87,7 +87,19 @@ Follow these step-by-step instructions to get the project up and running on your
    HOST_IP_ADDRESS="your_virtual_machine_ip_address"
    ```
 
+   Transfer the run_script.sh file to the home directory and configure the crontab service:
+   1. Edit the crontab file through this command
+   ```bash
+   crontab -e
+   ```
+   2. Paste the following into the crontab and save the changes made:
+   ```bash
+   * * * * * cd && /home/ubuntu/run_script.sh
+   ```
+
 6. **Download and Set Up NX Witness**
+  
+  Before proceeding with the following steps, ensure that the server is set up using the user guide. The user guide also contains userful illustrations for setting up NX Witness 
 
    **Install NX Witness:**
    1. Download and install **NX Witness** from [this page](https://nxvms.com/download/releases/linux).
@@ -120,13 +132,21 @@ Follow these step-by-step instructions to get the project up and running on your
       - <img src="images_for_README/setting_camera_rules.png" alt="Camera Rules" style="margin-right: 10px;" />
    4. Click **Apply**, then **OK** to confirm the settings.
 
-7. **Start the backend server:**
+7. **On the same device that runs the NX Witness Client, perform the following:** 
+  1. Download server.py
+  2. Run the following commands
+   ```bash
+   pip install flask flask-cors requests urllib3
+   python3 server.py
+   ```  
+
+8. **Start backend services:**
 
    ```bash
    python -m gunicorn -k eventlet --workers 1 --bind 0.0.0.0:5000 main:app
    ```
 
-8. **Start the frontend server:**
+9. **Start the frontend server:**
 
    ```bash
     cd ../frontend
@@ -138,7 +158,7 @@ Follow these step-by-step instructions to get the project up and running on your
     Socket connected with id: WqBZsZsGN0wLN0cMAAAB
     ```
 
-9. **Access the application:**
+10. **Access the application:**
 
     Go to web pages tab on NX Witness and access the application at `http://<HOST_IP_ADDRESS>:3000`.
 

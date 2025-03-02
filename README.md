@@ -1,9 +1,13 @@
-# [RapidGuard]
+# [RapidGuard - Your actionable disaster response and management solution](https://github.com/kohnh/RapidGuard)
+
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Contributors](https://img.shields.io/badge/Contributors-4-blue.svg)](github.com/kohnh/RapidGuard/graphs/contributors)
+
 
 
 A brief one- or two-sentence tagline about your project.
 
----
 
 ## Table of Contents
 
@@ -13,9 +17,7 @@ A brief one- or two-sentence tagline about your project.
 - [Features](#features)
 - [Architecture](#architecture)
 - [Contributing](#contributing)
-- [Contact](#contact)
 
----
 
 ## Project Overview
 
@@ -32,7 +34,9 @@ A brief one- or two-sentence tagline about your project.
 - **Why it matters:**  
   Explain the impact of your solution or how it benefits users.
 
----
+### Demo Video
+
+[![Watch the video](https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)
 
 ## Setup Guide
 
@@ -122,3 +126,28 @@ Follow these step-by-step instructions to get the project up and running on your
 Here is a brief guide on how to use the application.
 
 ### How to use the application
+
+
+---
+
+## Features
+
+
+## Architecture
+
+
+## Contributing
+[![Contributors](https://img.shields.io/badge/Contributors-4-blue.svg)](https://github.com/kohnh/RapidGuard/graphs/contributors) -->
+
+<a href="https://github.com/thebadone231" target="_blank">
+  <img src="https://github.com/thebadone231.png?size=100" alt="Chen Haoli" style="margin-right: 10px;" />
+</a>
+<a href="https://github.com/euzhengxi" target="_blank">
+  <img src="https://github.com/euzhengxi.png?size=100" alt="Eu Zheng Xi" style="margin-right: 10px;" />
+</a>
+<a href="https://github.com/ong-ck" target="_blank">
+  <img src="https://github.com/ong-ck.png?size=100" alt="Ong Chuan Kai" style="margin-right: 10px;" />
+</a>
+<a href="https://github.com/kohnh" target="_blank">
+  <img src="https://github.com/kohnh.png?size=100" alt="Koh Ngiap Hin" />
+</a>

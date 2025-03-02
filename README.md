@@ -326,7 +326,8 @@ Here is a brief guide on how to use the application.
 ![Additional context](./images_for_README/image_24.png)
 
 3. At any point in time, when more snapshots are captured, the system will update the user with the latest fire situation and provide a more refined solution based on the latest fire situation.
-![Updated solution](./images_for_README/image_25.png)
+![Updated solution with alert](./images_for_README/image_25.png)
+![Updated solution](./images_for_README/image_26.png)
 
 
 ## Contributing

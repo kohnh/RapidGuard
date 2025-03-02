@@ -1,4 +1,4 @@
-# RapidGuard - Your actionable disaster response and management solution
+# RapidGuard - Always One Step Ahead
 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)

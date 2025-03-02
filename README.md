@@ -269,7 +269,9 @@ Follow these step-by-step instructions to get the project up and running on your
       ![Camera Rules](./images_for_README/image_20.png)
       </details>
 
-8. **On the same device that runs the NX Witness Client, perform the following:**  
+## Running the Application
+
+1. **On the same device that runs the NX Witness Client, perform the following:**  
    
    1. Download `server.py`.  
    2. Run the following commands:  
@@ -279,25 +281,28 @@ Follow these step-by-step instructions to get the project up and running on your
       python3 server.py
       ```
 
-9. **Start backend services:**
+2. **Start backend services:**
 
    ```bash
    python -m gunicorn -k eventlet --workers 1 --bind 0.0.0.0:5000 main:app
    ```
 
-10. **Start the frontend server:**
+3. **Start the frontend server:**
 
-   ```bash
-    cd ../frontend
-    npm run dev
-    ```
-    Check the console to verify that socket connection is established.
-    You should see a message like this:
-    ```
-    Socket connected with id: WqBZsZsGN0wLN0cMAAAB
-    ```
+      ```bash
+      cd ../frontend
+      npm run dev
+      ```
 
-11. **Access the application:**
+      Check the console to verify that socket connection is established.
+
+      You should see a message like this:
+
+      ```
+      Socket connected with id: WqBZsZsGN0wLN0cMAAAB
+      ```
+
+4. **Access the application:**
 
     Go to web pages tab on NX Witness and access the application at `http://<HOST_IP_ADDRESS>:3000`.
 

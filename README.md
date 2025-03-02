@@ -87,13 +87,38 @@ Follow these step-by-step instructions to get the project up and running on your
    HOST_IP_ADDRESS="your_virtual_machine_ip_address"
    ```
 
-6. **Download NX Witness**
+6. **Download and Set Up NX Witness**
 
-   ```
-   <insert download from where, how to set it up>
-   <insert how to set up the camera>
-   <insert how to add in the ML model>
-   ```
+   **Install NX Witness:**
+   1. Download and install **NX Witness** from [this page](https://nxvms.com/download/releases/linux).
+   2. Open **NX Witness** and log in to your server using your credentials. If this is your first time connecting, enter the **server login details**.
+   3. Log in to **NX Cloud** by clicking the cloud icon in the top-right corner.
+
+   **Deploy the Fire Detection Model via NX AI Manager:**
+   > Ensure the **NX Witness server** is set up before proceeding.
+
+   1. Select the **camera** where you want to deploy the AI model.
+   2. **Right-click** on the camera and select **Camera Settings**.
+   3. Navigate to the **Plugins Tab** and select **NX AI Manager**.
+   4. Activate **NX AI Manager**:
+      - Toggle the activation switch (this may take a few minutes).
+      - Change **Camera Stream** to **Secondary**.
+      - Ensure **Device Active** is enabled.
+   5. Deploy the **fire detection model**:
+      - Click **Manage Device** and wait for the data to load.
+      - Select **Add a new pipeline** and choose the desired model.
+      - Click **"Add to CAMERA_NAME pipeline"** and wait for deployment.
+      - *(Optional)* Add a **post-processing function** if needed.
+   6. Click **Apply**, then **OK** to save changes.
+
+   **Configure NX Witness for Event Notification (POST Request):**
+   1. Select the **camera** running the AI model.
+   2. **Right-click** on the camera and select **Camera Rules**.
+   3. Add a **new camera rule**:
+      - Set the **URL** to the **IP address of the device running `server.py`**.
+      - Adjust the **POST request frequency** as needed.
+      - <img src="images_for_README/setting_camera_rules.png" alt="Camera Rules" style="margin-right: 10px;" />
+   4. Click **Apply**, then **OK** to confirm the settings.
 
 7. **Start the backend server:**
 

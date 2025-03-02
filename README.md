@@ -139,7 +139,7 @@ Here is a high-level overview of the project architecture.
   <img src="https://github.com/thebadone231.png?size=100" alt="Chen Haoli" style="margin-right: 10px;" />
 </a>
 <a href="https://github.com/euzhengxi" target="_blank">
-  <img src="./images_for_README/blank-profile-picture.png" alt="Eu Zheng Xi" style="margin-right: 10px; width: 100; height: 100; />
+  <img src="./images_for_README/blank-profile-picture.png" alt="Eu Zheng Xi" style="margin-right: 10px; width: 100px; height: 100px; />
 </a>
 <a href="https://github.com/ong-ck" target="_blank">
   <img src="https://github.com/ong-ck.png?size=100" alt="Ong Chuan Kai" style="margin-right: 10px;" />

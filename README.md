@@ -331,7 +331,7 @@ Here is a brief guide on how to use the application.
 
 
 ## Contributing
-[![Contributors](https://img.shields.io/badge/Contributors-4-blue.svg)](https://github.com/kohnh/RapidGuard/graphs/contributors) -->
+[![Contributors](https://img.shields.io/badge/Contributors-4-blue.svg)](https://github.com/kohnh/RapidGuard/graphs/contributors)
 
 <a href="https://github.com/thebadone231" target="_blank">
   <img src="https://github.com/thebadone231.png?size=100" alt="Chen Haoli" style="margin-right: 10px;" />

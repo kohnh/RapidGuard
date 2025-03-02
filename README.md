@@ -198,17 +198,17 @@ Here is a brief guide on how to use the application.
 
 1. Download and install the NX Witness client application that is suitable for your device from this webpage https://nxvms.com/download/releases/linux
 2. Open the NX Witness application and log in to your server. If this is your first time connecting to the server, you will need to enter the login credentials for the server.
-<br>
+
 
 ![Login to server](./images_for_README/image_1.png)
 
 3. Login to cloud by clicking onto the cloud icon located at the top right.
-<br>
+
 
 ![Login to cloud](./images_for_README/image_2.png)
 
 4. Select the camera you wish to deploy the AI model on, right click on it and select Camera Settings
-<br>
+
 
 ![Camera Settings](./images_for_README/image_3.png)
 
@@ -216,7 +216,7 @@ Here is a brief guide on how to use the application.
 a) Activate the NX AI Manager by toggling the switch
 b) Change Camera stream to secondary
 c) Ensure the Device Active switch is toggled 
-<br>
+
 
 ![Activate NX AI Manager](./images_for_README/image_4.png)
 
@@ -226,30 +226,30 @@ c) Ensure the Device Active switch is toggled
 
 1. Go to this url: https://admin.sclbl.nxvms.com/ and key in your login credentials if you are prompted to do so. 
 2. Select the name of your server.
-<br>
+
 
 ![Select server](./images_for_README/image_5.png)
 
 3. Click on the model icon to view the list of models available. To upload a new model, select Add a new model
-<br>
+
 
 ![Add a new model](./images_for_README/image_6.png)
 
 4. Select teachable machines and upload the zip file in the machine_learning folder in this github repository - https://github.com/kohnh/RapidGuard. Amend the model name and description accordingly and select upload model located at the bottom of the page
-<br>
+
 
 ![Upload model](./images_for_README/image_7.png)
 
 5. You should see a notification on the top right corner that says that your model is converting. The conversion can take up to 10 mins.
-<br>
+
 
 ![Model conversion](./images_for_README/image_8.png)
 
 6. This is what you can expect to see if the model conversion is valid
-<br>
+
 
 ![Model conversion success](./images_for_README/image_9.png)
-<br>
+
 
 ![Model conversion success](./images_for_README/image_10.png)
 
@@ -261,19 +261,19 @@ d) Select Add a new pipeline and look for the model you wish to add
 e) To add the model to the camera, select "Add to CAMERA_NAME pipeline" and wait for the model to be deployed
 f) Add a new post processing functionality if necessary
 g) Select "Apply" before clicking "Ok" to confirm the changes you made.
-<br>
+
 
 ![Deploy model](./images_for_README/image_11.png)
-<br>
+
 
 ![Deploy model](./images_for_README/image_12.png)
-<br>
+
 
 ![Deploy model](./images_for_README/image_13.png)
-<br>
+
 
 ![Deploy model](./images_for_README/image_14.png)
-<br>
+
 
 ![Deploy model](./images_for_README/image_15.png)
 
@@ -281,28 +281,28 @@ g) Select "Apply" before clicking "Ok" to confirm the changes you made.
 
 To configure NX Witness to do a POST request to notify the server that a new event has been detected:
 Select the camera you wish to deploy the AI model on, right click on it and select Camera Rules
-<br>
+
 
 ![Camera Rules](./images_for_README/image_16.png)
 
 Add a new camera rule and modify the configuration with respect to the following screenshot. 
-<br>
+
 
 ![Camera Rules](./images_for_README/image_17.png)
-<br>
+
 
 ![Camera Rules](./images_for_README/image_18.png)
 
 The URL should be the ip address of the device server.py is running. Adjust the frequency of the POST request accordingly.
 
 Select "Apply" before clicking "Ok" to confirm the changes you made.
-<br>
+
 
 ![Camera Rules](./images_for_README/image_19.png)
 
 Restart the test camera by using Ctrl C and rerunning the ./testcamera command. 
 If the event rules are configured correctly, this is what you should see in the events tab on the right panel:
-<br>
+
 
 ![Camera Rules](./images_for_README/image_20.png)
 

@@ -2,8 +2,6 @@
 
 **Base URL:** `http://<host_ip_address>:5000`
 
----
-
 ## 1. POST `/ask`
 
 **Description:**  

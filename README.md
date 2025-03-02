@@ -34,7 +34,7 @@ RapidGuard addresses these challenges by continuously monitoring live CCTV feeds
 
 ### Demo Video
 
-[![Watch the video](https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)
+[![Watch the video](https://img.youtube.com/vi/IPILEvOTmdI/maxresdefault.jpg)](https://youtu.be/IPILEvOTmdI)
 
 ## Setup Guide
 

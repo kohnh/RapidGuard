@@ -89,13 +89,13 @@ Follow these step-by-step instructions to get the project up and running on your
 
    Transfer the run_script.sh file to the home directory and configure the crontab service:
    1. Edit the crontab file through this command
-   ```bash
-   crontab -e
-   ```
+      ```bash
+      crontab -e
+      ```
    2. Paste the following into the crontab and save the changes made:
-   ```bash
-   * * * * * cd && /home/ubuntu/run_script.sh
-   ```
+      ```bash
+      * * * * * cd && /home/ubuntu/run_script.sh
+      ```
 
 6. **Download and Set Up NX Witness (Summary)**  
 
@@ -283,9 +283,9 @@ Follow these step-by-step instructions to get the project up and running on your
 
 2. **Start backend services:**
 
-   ```bash
-   python -m gunicorn -k eventlet --workers 1 --bind 0.0.0.0:5000 main:app
-   ```
+      ```bash
+      python -m gunicorn -k eventlet --workers 1 --bind 0.0.0.0:5000 main:app
+      ```
 
 3. **Start the frontend server:**
 
@@ -316,6 +316,17 @@ Here is a high-level overview of the project architecture.
 ## User Guide
 Here is a brief guide on how to use the application.
 
+1. Upon initial detection of fire, an initial solution will be sent to the user.
+![Initial solution with alert](./images_for_README/image_21.png)
+![Initial solution](./images_for_README/image_22.png)
+
+
+2. The user can ask clarifying questions (e.g. Where is the fire?) or provide additional context (e.g. Sarah is not here today.) to the AI model by typing in the chat box. The AI model will then answer the question or provide a more refined solution based on the additional context provided and the latest fire situation, respectively.
+![Clarifying question](./images_for_README/image_23.png)
+![Additional context](./images_for_README/image_24.png)
+
+3. At any point in time, when more snapshots are captured, the system will update the user with the latest fire situation and provide a more refined solution based on the latest fire situation.
+![Updated solution](./images_for_README/image_25.png)
 
 
 ## Contributing

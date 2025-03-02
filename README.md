@@ -11,7 +11,6 @@ RapidGuard is an AI-powered disaster response system that delivers real-time haz
 - [Project Overview](#project-overview)
 - [Setup Guide](#setup-guide)
 - [User Guide](#user-guide)
-- [Features](#features)
 - [Architecture](#architecture)
 - [Contributing](#contributing)
 
@@ -130,7 +129,7 @@ Here is a brief guide on how to use the application.
 ## Architecture
 Here is a high-level overview of the project architecture.
 
-![architecture diagram](./architecture_diagram.png)
+![architecture diagram](./images_for_README/architecture_diagram.png)
 
 
 ## Contributing
@@ -140,7 +139,7 @@ Here is a high-level overview of the project architecture.
   <img src="https://github.com/thebadone231.png?size=100" alt="Chen Haoli" style="margin-right: 10px;" />
 </a>
 <a href="https://github.com/euzhengxi" target="_blank">
-  <img src="https://github.com/euzhengxi.png?size=100" alt="Eu Zheng Xi" style="margin-right: 10px;" />
+  <img src="./images_for_README/blank-profile-picture.png" alt="Eu Zheng Xi" style="margin-right: 10px; width: 100; height: 100; />
 </a>
 <a href="https://github.com/ong-ck" target="_blank">
   <img src="https://github.com/ong-ck.png?size=100" alt="Ong Chuan Kai" style="margin-right: 10px;" />

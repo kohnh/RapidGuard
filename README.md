@@ -1,4 +1,4 @@
-# [RapidGuard - Your actionable disaster response and management solution](https://github.com/kohnh/RapidGuard)
+# RapidGuard - Your actionable disaster response and management solution
 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -165,19 +165,146 @@ Follow these step-by-step instructions to get the project up and running on your
     Go to web pages tab on NX Witness and access the application at `http://<HOST_IP_ADDRESS>:3000`.
 
 
----
-
-## User Guide
-Here is a brief guide on how to use the application.
-
-### How to use the application
-https://docs.google.com/document/d/1U_Nz2QCKk98D3H5zXynwiVX2_wvtkjRH0YGTiyDnGcg/edit?usp=sharing
 
 ## Architecture
 Here is a high-level overview of the project architecture.
 
 ![architecture diagram](./images_for_README/architecture_diagram.png)
 
+
+## User Guide
+Here is a brief guide on how to use the application.
+
+### 1. Setting up the NX server
+
+1. Download and install the NX Witness server application that is suitable for your device from this webpage https://nxvms.com/download/releases/linux. This documentation uses the server version for Ubuntu Linux. 
+2. To illustrate the use of RapidGuard, a test camera will be used in this documentation. Download this video (https://sora.com/g/gen_01jn0fd8k2ekd80fxf02g5837p) onto the Ubuntu Server. Another way to transfer the video onto the server is to download the video on your personal device and copy it over to the server using the following command:
+
+```bash
+1. cd $FOLDER_WHERE_THE_VIDEO_RESIDES
+2. sftp $USERNAME@NAME_OF_UBUNTU_SERVER
+3. put $NAME_OF_VIDEO
+4. exit
+```
+
+3. To turn on the test camera, execute the following commands:
+```bash
+   1. cd /opt/networkoptix-metavms/mediaserver/bin
+   2. ./testcamera files=/home/$USERNAME/$NAME_OF_VIDEO
+
+```
+
+### 2. Setting up NX Witness Client
+
+1. Download and install the NX Witness client application that is suitable for your device from this webpage https://nxvms.com/download/releases/linux
+2. Open the NX Witness application and log in to your server. If this is your first time connecting to the server, you will need to enter the login credentials for the server.
+<br>
+
+![Login to server](./images_for_README/image_1.png)
+
+3. Login to cloud by clicking onto the cloud icon located at the top right.
+<br>
+
+![Login to cloud](./images_for_README/image_2.png)
+
+4. Select the camera you wish to deploy the AI model on, right click on it and select Camera Settings
+<br>
+
+![Camera Settings](./images_for_README/image_3.png)
+
+5. Go to the Plugins Tab and select NX AI Manager, which is located on the left and perform the following: 
+a) Activate the NX AI Manager by toggling the switch
+b) Change Camera stream to secondary
+c) Ensure the Device Active switch is toggled 
+<br>
+
+![Activate NX AI Manager](./images_for_README/image_4.png)
+
+6. If the AI Manager plugin is not available, install the AI manager manually by referring to this documentation. https://nx.docs.scailable.net/nx-ai-manager/4.-manual-plugin-installation. Install this package onto the server. 
+
+### 3. Managing AI models using NX AI manager
+
+1. Go to this url: https://admin.sclbl.nxvms.com/ and key in your login credentials if you are prompted to do so. 
+2. Select the name of your server.
+<br>
+
+![Select server](./images_for_README/image_5.png)
+
+3. Click on the model icon to view the list of models available. To upload a new model, select Add a new model
+<br>
+
+![Add a new model](./images_for_README/image_6.png)
+
+4. Select teachable machines and upload the zip file in the machine_learning folder in this github repository - https://github.com/kohnh/RapidGuard. Amend the model name and description accordingly and select upload model located at the bottom of the page
+<br>
+
+![Upload model](./images_for_README/image_7.png)
+
+5. You should see a notification on the top right corner that says that your model is converting. The conversion can take up to 10 mins.
+<br>
+
+![Model conversion](./images_for_README/image_8.png)
+
+6. This is what you can expect to see if the model conversion is valid
+<br>
+
+![Model conversion success](./images_for_README/image_9.png)
+<br>
+
+![Model conversion success](./images_for_README/image_10.png)
+
+7. To deploy the fire detection model that has been uploaded, perform the following steps:
+a) Go to your NX client application
+b) Select the camera, right click and select camera settings.
+c) Go to the Plugins tab and select Manage Device
+d) Select Add a new pipeline and look for the model you wish to add
+e) To add the model to the camera, select "Add to CAMERA_NAME pipeline" and wait for the model to be deployed
+f) Add a new post processing functionality if necessary
+g) Select "Apply" before clicking "Ok" to confirm the changes you made.
+<br>
+
+![Deploy model](./images_for_README/image_11.png)
+<br>
+
+![Deploy model](./images_for_README/image_12.png)
+<br>
+
+![Deploy model](./images_for_README/image_13.png)
+<br>
+
+![Deploy model](./images_for_README/image_14.png)
+<br>
+
+![Deploy model](./images_for_README/image_15.png)
+
+### 4. Configuring NX event rules
+
+To configure NX Witness to do a POST request to notify the server that a new event has been detected:
+Select the camera you wish to deploy the AI model on, right click on it and select Camera Rules
+<br>
+
+![Camera Rules](./images_for_README/image_16.png)
+
+Add a new camera rule and modify the configuration with respect to the following screenshot. 
+<br>
+
+![Camera Rules](./images_for_README/image_17.png)
+<br>
+
+![Camera Rules](./images_for_README/image_18.png)
+
+The URL should be the ip address of the device server.py is running. Adjust the frequency of the POST request accordingly.
+
+Select "Apply" before clicking "Ok" to confirm the changes you made.
+<br>
+
+![Camera Rules](./images_for_README/image_19.png)
+
+Restart the test camera by using Ctrl C and rerunning the ./testcamera command. 
+If the event rules are configured correctly, this is what you should see in the events tab on the right panel:
+<br>
+
+![Camera Rules](./images_for_README/image_20.png)
 
 ## Contributing
 [![Contributors](https://img.shields.io/badge/Contributors-4-blue.svg)](https://github.com/kohnh/RapidGuard/graphs/contributors) -->

@@ -196,6 +196,8 @@ Here is a brief guide on how to use the application.
 
 ### 2. Setting up NX Witness Client
 
+<details>
+<summary>Step by step guide</summary>
 1. Download and install the NX Witness client application that is suitable for your device from this webpage https://nxvms.com/download/releases/linux
 2. Open the NX Witness application and log in to your server. If this is your first time connecting to the server, you will need to enter the login credentials for the server.
 
@@ -305,6 +307,7 @@ If the event rules are configured correctly, this is what you should see in the 
 
 
 ![Camera Rules](./images_for_README/image_20.png)
+</details>
 
 ## Contributing
 [![Contributors](https://img.shields.io/badge/Contributors-4-blue.svg)](https://github.com/kohnh/RapidGuard/graphs/contributors) -->

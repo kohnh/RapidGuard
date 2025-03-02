@@ -127,11 +127,10 @@ Here is a brief guide on how to use the application.
 ### How to use the application
 
 
-
-
 ## Architecture
 Here is a high-level overview of the project architecture.
 
+![architecture diagram](./architecture_diagram.png)
 
 
 ## Contributing
